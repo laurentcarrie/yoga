@@ -20,8 +20,6 @@ namespace  yoga {
 
     std::string exec(const char *cmd);
 
-    std::filesystem::path wave_path_of_position(yoga::Position position);
-
     std::filesystem::path wave_path_of_duration(int duration);
 
     void play_duration(int duration);
