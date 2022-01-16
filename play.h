@@ -23,6 +23,7 @@ void play_duration(int duration) ;
 void play_wav_position(yoga::Position position)  ;
 void play_position(yoga::Position position,int duration) ;
 void play_end() ;
+void play_total_duration(int duration) ;
 
 
 #endif

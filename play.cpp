@@ -9,6 +9,7 @@
 #include <sstream>
 #include <unistd.h>
 #include <vector>
+#include <algorithm>
 
 #include "model.h"
 
@@ -53,6 +54,37 @@ void play_duration(int duration) {
     std::ostringstream  oss ;
     oss << "play " << wave_path_of_duration(duration) ;
     exec(oss.str().c_str()) ;
+}
+
+void play_total_duration(int duration) {
+    std::vector<std::string> sounds { "le_temps_total_est_de"} ;
+    int minutes = duration / 60 ;
+    int seconds = (duration % 60) / 10 * 10 ;
+    sounds.push_back( std::to_string(minutes)) ;
+    sounds.push_back( "minutes") ;
+    sounds.push_back( std::to_string(seconds)) ;
+    sounds.push_back( "secondes") ;
+    sleep(3) ;
+
+    std::for_each(std::begin(sounds),std::end(sounds),[](std::string& item){
+        std::ostringstream oss ;
+        oss << "../sounds/" << item << ".wav" ;
+        item = oss.str() ;
+        std::filesystem::path path(item) ;
+        if (! std::filesystem::exists(path) ) {
+            std::ostringstream oss ;
+            oss << "path does not exist : " << path ;
+            throw std::runtime_error(oss.str()) ;
+        }
+    }) ;
+
+    std::ostringstream oss;
+    oss << "play " ;
+    for ( auto s : sounds ) {
+        oss << " " << s ;
+    }
+    exec(oss.str().c_str());
+
 }
 
 void play_wav_position(yoga::Position position) {
