@@ -77,5 +77,5 @@ void play_position(yoga::Position position,int duration) {
 }
 
 void play_end() {
-    play_wav_position(yoga::Position::end) ;
+    play_wav_position(yoga::Position::fin) ;
 }
